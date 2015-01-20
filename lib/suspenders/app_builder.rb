@@ -300,10 +300,12 @@ end
     end
 
     def create_heroku_apps(flags)
+      staging_environment = "RACK_ENV=staging RAILS_ENV=staging"
+      serve_static_files = "RAILS_SERVE_STATIC_FILES=true"
       run_heroku "create #{app_name}-production #{flags}", "production"
       run_heroku "create #{app_name}-staging #{flags}", "staging"
-      run_heroku "config:add RACK_ENV=staging RAILS_ENV=staging RAILS_SERVE_STATIC_FILES=true", "staging"
-      run_heroku "config:add RAILS_SERVE_STATIC_FILES=true", "production"
+      run_heroku "config:add #{staging_environment} #{serve_static_files}", "staging"
+      run_heroku "config:add #{serve_static_files}" "production"
     end
 
     def set_heroku_remotes
