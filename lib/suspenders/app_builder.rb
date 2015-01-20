@@ -164,14 +164,6 @@ end
       create_file '.ruby-version', "#{Suspenders::RUBY_VERSION}\n"
     end
 
-    def setup_heroku_specific_gems
-      inject_into_file(
-        "Gemfile",
-        %{\n\s\sgem "rails_stdout_logging"},
-        after: /group :staging, :production do/
-      )
-    end
-
     def enable_database_cleaner
       copy_file 'database_cleaner_rspec.rb', 'spec/support/database_cleaner.rb'
     end
@@ -299,72 +291,9 @@ end
       run 'git init'
     end
 
-    def create_heroku_apps(flags)
-      run_heroku "create #{app_name}-production #{flags}", "production"
-      run_heroku "create #{app_name}-staging #{flags}", "staging"
-      run_heroku "config:add RACK_ENV=staging RAILS_ENV=staging", "staging"
-    end
-
-    def set_heroku_remotes
-      remotes = <<-SHELL
-
-# Set up the staging and production apps.
-#{join_heroku_app('staging')}
-#{join_heroku_app('production')}
-      SHELL
-
-      append_file 'bin/setup', remotes
-    end
-
-    def join_heroku_app(environment)
-      heroku_app_name = "#{app_name}-#{environment}"
-      <<-SHELL
-if heroku join --app #{heroku_app_name} &> /dev/null; then
-  git remote add #{environment} git@heroku.com:#{heroku_app_name}.git || true
-  printf 'You are a collaborator on the "#{heroku_app_name}" Heroku app\n'
-else
-  printf 'Ask for access to the "#{heroku_app_name}" Heroku app\n'
-fi
-      SHELL
-    end
-
-    def set_heroku_rails_secrets
-      %w(staging production).each do |environment|
-        run_heroku "config:add SECRET_KEY_BASE=#{generate_secret}", environment
-      end
-    end
-
-    def set_memory_management_variable
-      %w(staging production).each do |environment|
-        run_heroku "config:add NEW_RELIC_AGGRESSIVE_KEEPALIVE=1", environment
-      end
-    end
-
-    def provide_deploy_script
-      copy_file "bin_deploy", "bin/deploy"
-
-      instructions = <<-MARKDOWN
-
-## Deploying
-
-If you have previously run the `./bin/setup` script,
-you can deploy to staging and production with:
-
-    $ ./bin/deploy staging
-    $ ./bin/deploy production
-      MARKDOWN
-
-      append_file "README.md", instructions
-    end
-
     def create_github_repo(repo_name)
       path_addition = override_path_for_tests
       run "#{path_addition} hub create #{repo_name}"
-    end
-
-    def setup_segment_io
-      copy_file '_analytics.html.erb',
-        'app/views/application/_analytics.html.erb'
     end
 
     def setup_bundler_audit
@@ -429,11 +358,6 @@ end
         support_bin = File.expand_path(File.join('..', '..', 'spec', 'fakes', 'bin'))
         "PATH=#{support_bin}:$PATH"
       end
-    end
-
-    def run_heroku(command, environment)
-      path_addition = override_path_for_tests
-      run "#{path_addition} heroku #{command} --remote #{environment}"
     end
 
     def factories_spec_rake_task

@@ -5,7 +5,7 @@ require 'date'
 
 Gem::Specification.new do |s|
   s.required_ruby_version = ">= #{Suspenders::RUBY_VERSION}"
-  s.authors = ['thoughtbot']
+  s.authors = ['locomotiva.ml', 'thoughtbot']
   s.date = Date.today.strftime('%Y-%m-%d')
 
   s.description = <<-HERE
@@ -14,16 +14,16 @@ thoughtbot to get a jump start on a working app. Use Suspenders if you're in a
 rush to build something amazing; don't use it if you like missing deadlines.
   HERE
 
-  s.email = 'support@thoughtbot.com'
+  s.email = 'support@locomotiva.ml'
   s.executables = ['suspenders']
   s.extra_rdoc_files = %w[README.md LICENSE]
   s.files = `git ls-files`.split("\n")
-  s.homepage = 'http://github.com/thoughtbot/suspenders'
+  s.homepage = 'http://github.com/locomotivaml/suspenders'
   s.license = 'MIT'
   s.name = 'suspenders'
   s.rdoc_options = ['--charset=UTF-8']
   s.require_paths = ['lib']
-  s.summary = "Generate a Rails app using thoughtbot's best practices."
+  s.summary = "Generate a Rails app using locomotiva.ml's best practices."
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.version = Suspenders::VERSION
 

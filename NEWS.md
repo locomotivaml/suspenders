@@ -1,3 +1,8 @@
+1.24.0 (January 20, 2015)
+
+* Remove `bin/deploy` script
+* Update to fit our needs
+
 1.23.0 (January 19, 2015)
 
 * Use Bourbon 4.1.0.

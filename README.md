@@ -1,9 +1,6 @@
-# Suspenders [![Build Status](https://secure.travis-ci.org/thoughtbot/suspenders.png?branch=master)](http://travis-ci.org/thoughtbot/suspenders)
+# Suspenders [![Build Status](https://secure.travis-ci.org/locomotivaml/suspenders.png?branch=master)](http://travis-ci.org/locomotivaml/suspenders)
 
-Suspenders is the base Rails application used at
-[thoughtbot](http://thoughtbot.com).
-
-  ![Suspenders boy](http://media.tumblr.com/1TEAMALpseh5xzf0Jt6bcwSMo1_400.png)
+Suspenders is the base Rails application used at [locomotiva](http://locomotiva.ml). Forked from [thoughtbot](http://thoughtbot.com).
 
 ## Installation
 
@@ -85,7 +82,6 @@ And testing gems like:
 Suspenders also comes with:
 
 * The [`./bin/setup`][setup] convention for new developer setup
-* The `./bin/deploy` convention for deploying to Heroku
 * Rails' flashes set up and in application layout
 * A few nice time formats set up for localization
 * `Rack::Deflater` to [compress responses with Gzip][compress]
@@ -94,28 +90,15 @@ Suspenders also comes with:
 * [t() and l() in specs without prefixing with I18n][i18n]
 * An automatically-created `SECRET_KEY_BASE` environment variable in all
   environments
-* Configuration for [Travis Pro][travis] continuous integration
-* The analytics adapter [Segment][segment] (and therefore config for Google
-  Analytics, Intercom, Facebook Ads, Twitter Ads, etc.)
 
 [setup]: http://robots.thoughtbot.com/bin-setup
 [compress]: http://robots.thoughtbot.com/content-compression-with-rack-deflater/
 [pool]: https://devcenter.heroku.com/articles/concurrency-and-database-connections
 [binstub]: https://github.com/thoughtbot/suspenders/pull/282
 [i18n]: https://github.com/thoughtbot/suspenders/pull/304
-[travis]: http://docs.travis-ci.com/user/travis-pro/
-[segment]: https://segment.io
-
-## Heroku
-
-You can optionally create Heroku staging and production apps:
-
-    suspenders app --heroku true
 
 This:
 
-* Creates a staging and production Heroku app
-* Sets them as `staging` and `production` Git remotes
 * Configures staging with `RACK_ENV` and `RAILS_ENV` environment variables set
   to `staging`
 * Adds the [Rails Stdout Logging][logging-gem] gem
@@ -124,16 +107,6 @@ This:
 
 [logging-gem]: https://github.com/heroku/rails_stdout_logging
 [heroku-logging]: https://devcenter.heroku.com/articles/logging#writing-to-your-log
-
-You can optionally specify alternate Heroku flags:
-
-    suspenders app \
-      --heroku true \
-      --heroku-flags "--region eu --addons newrelic,pgbackups,sendgrid,ssl"
-
-See all possible Heroku flags:
-
-    heroku help create
 
 ## Git
 
@@ -174,11 +147,6 @@ installing QT are
 
 PostgreSQL needs to be installed and running for the `db:create` rake task.
 
-## Issues
-
-If you have problems, please create a
-[GitHub Issue](https://github.com/thoughtbot/suspenders/issues).
-
 ## Contributing
 
 To update Suspenders' Ruby version, change `.ruby-version` and `.travis.yml`.
@@ -191,6 +159,8 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md) for further details.
 
 Suspenders is maintained and funded by
 [thoughtbot, inc](http://thoughtbot.com/community).
+
+This is a public fork.
 
 The names and logos for thoughtbot are trademarks of thoughtbot, inc.
 
